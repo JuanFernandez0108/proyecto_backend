@@ -1,90 +1,81 @@
 const fs = require('fs');
+const path = require('path');
 
 class ProductManager {
-    constructor() {
-        this.filePath = 'products.json';
-        this.idCounter = 0;
-        this.loadData();
+  constructor() {
+    this.products = [];
+    this.filePath = path.join(__dirname, 'products.json');
+    this.loadData();
+  }
+
+  loadData() {
+    try {
+      const data = fs.readFileSync(this.filePath, 'utf-8');
+      this.products = JSON.parse(data);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    loadData() {
-        try {
-            this.products = JSON.parse(fs.readFileSync(this.filePath));
-            this.idCounter = this.products.length;
-        } catch (error) {
-            this.products = [];
-        }
+  saveData() {
+    try {
+      fs.writeFileSync(this.filePath, JSON.stringify(this.products));
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    saveData() {
-        fs.writeFileSync(this.filePath, JSON.stringify(this.products));
+  addProduct(title, description, price, thumbnail, code, stock) {
+    const id = this.products.length > 0 ? this.products[this.products.length - 1].id + 1 : 0;
+    this.products.push({
+      id,
+      title,
+      description,
+      price,
+      thumbnail,
+      code,
+      stock
+    });
+    this.saveData();
+  }
+
+  getAllProducts() {
+    return this.products;
+  }
+
+  getProductById(id) {
+    id = Number(id);
+    return this.products.find(product => product.id === id);
+  }
+  
+
+  updateProduct(id, title, description, price, thumbnail, code, stock) {
+    const productIndex = this.products.findIndex(product => product.id === id);
+    if (productIndex !== -1) {
+      this.products[productIndex] = {
+        id,
+        title,
+        description,
+        price,
+        thumbnail,
+        code,
+        stock
+      };
+      this.saveData();
+      return true;
     }
+    return false;
+  }
 
-    addProduct(title, description, price, thumbnail, code, stock) {
-        if (!title || !description || !price || !thumbnail || !code || !stock) {
-            console.log("All fields are required");
-            return;
-        }
-
-        if (this.products.find(product => product.code === code)) {
-            console.log("Code already exists");
-            return;
-        }
-
-        let product = {
-            id: this.idCounter++,
-            title: title,
-            description: description,
-            price: price,
-            thumbnail: thumbnail,
-            code: code,
-            stock: stock
-        }
-        this.products.push(product);
-        this.saveData();
+  deleteProduct(id) {
+    const productIndex = this.products.findIndex(product => product.id === id);
+    if (productIndex !== -1) {
+      this.products.splice(productIndex, 1);
+      this.saveData();
+      return true;
     }
-
-    getProduct(code) {
-        return this.products.find(product => product.code === code);
-    }
-
-    getProductById(id) {
-        let product = this.products.find(product => product.id === id);
-        if (!product) {
-            console.log("Not found");
-        }
-        return product;
-    }
-
-    getAllProducts() {
-        return this.products;
-    }
-
-    updateProduct(id, title, description, price, thumbnail, code, stock) {
-        let product = this.getProductById(id);
-        if (!product) {
-            console.log("Not found");
-            return;
-        }
-
-        if (title) product.title = title;
-        if (description) product.description = description;
-        if (price) product.price = price;
-        if (thumbnail) product.thumbnail = thumbnail;
-        if (code) product.code = code;
-        if (stock) product.stock = stock;
-        this.saveData();
-    }
-
-    deleteProduct(id) {
-        let index = this.products.findIndex(product => product.id === id);
-        if (index === -1) {
-            console.log("Not found");
-            return;
-        }
-        this.products.splice(index, 1);
-        this.saveData();
-    }
+    return false;
+  }
 }
 
 module.exports = ProductManager;

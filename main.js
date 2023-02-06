@@ -1,20 +1,29 @@
+const express = require('express');
 const ProductManager = require('./productManager');
 
-let productManager = new ProductManager();
-productManager.addProduct('Product 1', 'Description 1', 10, 'thumbnail1.jpg', 'code1', 10);
-productManager.addProduct('Product 2', 'Description 2', 20, 'thumbnail2.jpg', 'code2', 20);
-productManager.addProduct('Product 3', 'Description 3', 30, 'thumbnail3.jpg', 'code3', 30);
+const productManager = new ProductManager();
+const app = express();
 
-let products = productManager.getAllProducts();
-console.log(products);
+app.get('/products', (req, res) => {
+  const limit = req.query.limit;
+  let products = productManager.getAllProducts();
+  if (limit) {
+    products = products.slice(0, limit);
+  }
+  res.json(products);
+});
 
-let product = productManager.getProductById(1);
-console.log(product);
+app.get('/products/:pid', (req, res) => {
+  const pid = parseInt(req.params.pid);
+  const product = productManager.getProductById(pid);
+  if (!product) {
+    res.status(404).send('Product not found');
+  } else {
+    res.json(product);
+  }
+});
 
-productManager.updateProduct(1, 'Updated Product 1', 'Updated Description 1', 15, 'thumbnail1.jpg', 'code1', 15);
-product = productManager.getProductById(1);
-console.log(product);
-
-productManager.deleteProduct(2);
-products = productManager.getAllProducts();
-console.log(products);
+const port = 3001;
+app.listen(port, () => {
+  console.log(`Server started at http://localhost:${port}`);
+});
