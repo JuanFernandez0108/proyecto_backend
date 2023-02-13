@@ -1,0 +1,86 @@
+[
+    {
+      "id": 1,
+      "title": "Smartphone Samsung Galaxy S21",
+      "description": "Un smartphone con pantalla AMOLED de 6.2 pulgadas, batería de 4000mAh y triple cámara trasera",
+      "code": "SAMS21",
+      "price": 799.99,
+      "status": true,
+      "stock": 50,
+      "category": "1",
+      "thumbnails": [
+        "https://image1.jpg",
+        "https://image2.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Laptop Dell XPS 13",
+      "description": "Una laptop con pantalla InfinityEdge de 13.3 pulgadas, procesador Intel Core i7 y 16GB de RAM",
+      "code": "DELXPS13",
+      "price": 999.99,
+      "status": true,
+      "stock": 30,
+      "category": "1",
+      "thumbnails": [
+        "https://image3.jpg",
+        "https://image4.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Tablet iPad Pro",
+      "description": "Una tablet con pantalla Liquid Retina de 11 pulgadas, procesador A12Z Bionic y 128GB de almacenamiento",
+      "code": "IPADPRO11",
+      "price": 799.99,
+      "status": true,
+      "stock": 40,
+      "category": "1",
+      "thumbnails": [
+        "https://image5.jpg",
+        "https://image6.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Reloj Inteligente Apple Watch Series 6",
+      "description": "Un reloj inteligente con pantalla Retina always-on, medidor de oxígeno en sangre y GPS",
+      "code": "APPLEW6",
+      "price": 399.99,
+      "status": true,
+      "stock": 60,
+      "category": "2",
+      "thumbnails": [
+        "https://image7.jpg",
+        "https://image8.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Audífonos Beats Powerbeats Pro",
+      "description": "Audífonos inalámbricos con cancelación de ruido, 9 horas de batería y conexión Bluetooth",
+      "code": "BEATSPRO",
+      "price": 199.99,
+      "status": true,
+      "stock": 80,
+      "category": "2",
+      "thumbnails": [
+        "https://image9.jpg",
+        "https://image10.jpg"
+      ]
+    },
+    {
+        "id": 6,
+        "title": "Producto 6",
+        "description": "Descripcion del producto 6",
+        "code": "C6",
+        "price": 100,
+        "status": true,
+        "stock": 10,
+        "category": "Categoria 2",
+        "thumbnails": [
+            "https://image11.jpg",
+            "https://image12.jpg"
+        ]
+        }
+    ]
