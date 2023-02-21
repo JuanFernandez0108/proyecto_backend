@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Time Products</title>
+</head>
+<body>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      socket.on('productos', function (productos) {
+        var listaProductos = document.getElementById('lista-productos');
+        listaProductos.innerHTML = '';
+        productos.forEach(function (producto) {
+          var li = document.createElement('li');
+          li.innerText = producto.title;
+          listaProductos.appendChild(li);
+        });
+      });
+      function addProduct() {
+        var producto = {
+          title: document.getElementById('title').value,
+          price: document.getElementById('price').value,
+          thumbnail: document.getElementById('thumbnail').value,
+        };
+        socket.emit('update', producto);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Real Time Products</h1>
+    <ul id="lista-productos"></ul>
+    <form onsubmit="return false;">
+      <input type="text" id="title" placeholder="Title">
+      <input type="number" id="price" placeholder="Price">
+      <input type="text" id="thumbnail" placeholder="Thumbnail">
+      <button onclick="addProduct()">Agregar</button>
+    </form>
+
+</body>
+</html>

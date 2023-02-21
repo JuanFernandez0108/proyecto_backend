@@ -1,0 +1,11 @@
+{{#each productos}}
+  <div>
+    <h3>{{nombre}}</h3>
+    <p>{{descripcion}}</p>
+    <p>Precio: ${{precio}}</p>
+    <form action="/carrito" method="post">
+      <input type="hidden" name="id" value="{{id}}">
+      <button type="submit">Agregar al carrito</button>
+    </form>
+  </div>
+{{/each}}
